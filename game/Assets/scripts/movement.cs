@@ -20,11 +20,23 @@ public class movement : MonoBehaviour
         moveInput.y = Input.GetAxisRaw("Vertical");
         moveInput.Normalize(); //diagonalni pohyb nebude rychlejsi
 
-        anim.SetBool("moving", moveInput != Vector2.zero);
-        if (moveInput.x > 0) anim.SetInteger("direction", 3);     // right
-        else if (moveInput.x < 0) anim.SetInteger("direction", 2); // left
-        else if (moveInput.y > 0) anim.SetInteger("direction", 1); // up
-        else if (moveInput.y < 0) anim.SetInteger("direction", 0); // down
+        //animace
+        anim.SetFloat("X", moveInput.x);
+        anim.SetFloat("Y", moveInput.y);
+
+        bool moving = moveInput.x != 0 || moveInput.y != 0;
+        anim.SetBool("moving", moving);
+
+        if (moving)
+        {
+            anim.SetFloat("LastMoveX", moveInput.x);
+            anim.SetFloat("LastMoveY", moveInput.y);
+        }
+        else
+        {
+            anim.SetFloat("X", anim.GetFloat("LastMoveX"));
+            anim.SetFloat("Y", anim.GetFloat("LastMoveY"));
+        }
     }
 
     void FixedUpdate()

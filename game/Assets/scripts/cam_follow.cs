@@ -68,7 +68,7 @@ public class CameraFollow : MonoBehaviour
         targetPos.z = offset.z;
 
         //plynule prechody
-        Vector3 smoothPos = Vector3.Lerp(transform.position, targetPos, smoothSpeed);
+        Vector3 smoothPos = Vector3.Lerp(transform.position, targetPos, 1f - Mathf.Pow(1f - smoothSpeed, Time.deltaTime * 60f));
         transform.position = smoothPos;
     }
 }
