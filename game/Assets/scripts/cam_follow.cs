@@ -3,12 +3,12 @@ using UnityEngine.Tilemaps;
 
 [RequireComponent(typeof(Camera))]
 public class CameraFollow : MonoBehaviour
-{
-    public Transform player;       
+{     
     public Tilemap tilemap;        
     public float smoothSpeed = 0.125f;
     public Vector3 offset = new Vector3(0f, 0f, -10f);
 
+    private Transform player;
     private Camera cam;
     private Vector3 minBounds; //minimum mapy
     private Vector3 maxBounds; //maximum mapy
@@ -18,6 +18,11 @@ public class CameraFollow : MonoBehaviour
     void Start()
     {
         cam = GetComponent<Camera>();
+
+        // najde hr·Ëe podle tagu
+        GameObject p = GameObject.FindGameObjectWithTag("Player");
+        if (p != null)
+            player = p.transform;
 
         //polovicni rozmery mapy
         halfHeight = cam.orthographicSize;
@@ -44,7 +49,15 @@ public class CameraFollow : MonoBehaviour
 
     void LateUpdate()
     {
-        if (player == null) return;
+        // KDYé HR¡» JEäTÃ NENÕ, ZKUS HO NAJÕT
+        if (player == null)
+        {
+            GameObject p = GameObject.FindGameObjectWithTag("Player");
+            if (p != null)
+                player = p.transform;
+
+            return;
+        }
 
         Vector3 targetPos = player.position + offset;
 
