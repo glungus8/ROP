@@ -5,9 +5,8 @@ public class enemy_chase : enemy_base
     public float chaseRange = 5f;
     Rigidbody2D rb;
 
-    protected override void Start()
+    void Awake()
     {
-        base.Start();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -25,3 +24,4 @@ public class enemy_chase : enemy_base
         }
     }
 }
+

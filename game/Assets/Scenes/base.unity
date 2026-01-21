@@ -9204,7 +9204,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &617305236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11528,6 +11528,51 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d2dde732acd0b24291c2136fb6d8a4d, type: 3}
+--- !u!1 &1465111482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1465111483}
+  - component: {fileID: 1465111484}
+  m_Layer: 0
+  m_Name: coin_manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1465111483
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465111482}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1195.8911, y: 519.13354, z: -5.515758}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1465111484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1465111482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d511516c55f09704fb85d11e2dc1b972, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coins: 10
 --- !u!1 &1652333541
 GameObject:
   m_ObjectHideFlags: 0
@@ -11561,7 +11606,6 @@ MonoBehaviour:
   hpText: {fileID: 1872792559}
   energyText: {fileID: 1102986898}
   ultText: {fileID: 1962589695}
-  coins: 0
   hp: 100
   hpRegen: 1
   regenDelay: 1
@@ -12093,5 +12137,6 @@ SceneRoots:
   - {fileID: 1652333543}
   - {fileID: 844822023}
   - {fileID: 2079063030}
+  - {fileID: 1465111483}
   - {fileID: 1739065686}
   - {fileID: 1279181566}

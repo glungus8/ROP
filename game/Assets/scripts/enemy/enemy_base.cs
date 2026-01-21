@@ -3,20 +3,18 @@ using UnityEngine;
 public class enemy_base : MonoBehaviour
 {
     public float moveSpeed = 2f;
+
     protected Transform player;
 
-    protected virtual void Start()
+    protected virtual void Update()
     {
-        GameObject p = GameObject.FindGameObjectWithTag("Player");
-
-        if (p != null)
+        if (player == null)
         {
-            player = p.transform;
-            Debug.Log("Enemy naöel hr·Ëe");
-        }
-        else
-        {
-            Debug.LogError("Enemy NENAäEL hr·Ëe!");
+            GameObject p = GameObject.FindGameObjectWithTag("Player");
+            if (p != null)
+            {
+                player = p.transform;
+            }
         }
     }
 }

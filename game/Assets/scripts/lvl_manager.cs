@@ -106,6 +106,8 @@ public class lvl_manager : MonoBehaviour
 
     public void CompleteLevel(int levelNumber)
     {
+        coin_manager.Instance.AddCoins(10);
+
         if (levelNumber >= unlockedLevel) // pokud je tento level nejvyssi dosazeny
             unlockedLevel = levelNumber + 1; //odemkne dalsi level
 

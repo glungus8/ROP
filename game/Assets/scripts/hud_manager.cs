@@ -8,8 +8,6 @@ public class manager : MonoBehaviour
     public TMP_Text energyText;
     public TMP_Text ultText;
 
-    public int coins = 0;
-
     public float hp = 100f;
     public float hpRegen = 5f;       
     public float regenDelay = 1f;    
@@ -30,7 +28,6 @@ public class manager : MonoBehaviour
         Energy();
         Ult();
         UpdateUI();
-        AddCoins();
         HP();
     }
 
@@ -61,14 +58,6 @@ public class manager : MonoBehaviour
         ult = Mathf.Clamp(ult, 0, ultMax);
     }
 
-    void AddCoins()
-    {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            coins += 1;
-        }
-    }
-
     void HP()
     {
         if (Input.GetKeyDown(KeyCode.H))
@@ -87,9 +76,10 @@ public class manager : MonoBehaviour
 
     void UpdateUI()
     {
-        coinsText.text = coins + " g";
+        coinsText.text = coin_manager.Instance.coins + " g";
         hpText.text = Mathf.RoundToInt(hp) + " HP";
         energyText.text = Mathf.RoundToInt(en) + " EN";
         ultText.text = Mathf.RoundToInt(ult) + " ULT";
     }
+
 }
