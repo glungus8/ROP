@@ -19,6 +19,8 @@ public class role_menu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             roleMenu.SetActive(!roleMenu.activeSelf);
+            //nastavi viditelnost HUD
+            manager.instance.HUDVisible(!roleMenu.activeSelf);
         }
     }
 

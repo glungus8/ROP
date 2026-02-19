@@ -1,3 +1,4 @@
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,6 +7,9 @@ public class menu : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene("base", LoadSceneMode.Single);
+
+        //nastavi viditelnost HUD
+        manager.instance.HUDVisible(true);
     }
 
     public void OpenSettings()

@@ -27,6 +27,9 @@ public class pause_menu : MonoBehaviour
 
         pauseMenu.SetActive(paused);
         Time.timeScale = paused ? 0f : 1f;
+
+        //nastavi viditelnost HUD podle toho jestli jsem/nejsem v pause
+        manager.instance.HUDVisible(!paused);
     }
 
     public void ForceClosePause()

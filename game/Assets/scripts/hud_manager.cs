@@ -4,7 +4,21 @@ using TMPro;
 public class manager : MonoBehaviour
 {
     public TMP_Text coinsText, hpText, energyText, ultText;
+    public GameObject HUD;
+    public static manager instance;
     player_manager pm;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Update()
     {
@@ -42,5 +56,11 @@ public class manager : MonoBehaviour
             ultText.text = "READY";
             ultText.color = Color.yellow;
         }
+    }
+
+    public void HUDVisible(bool visible)
+    {
+        if (HUD != null)
+            HUD.SetActive(visible);
     }
 }

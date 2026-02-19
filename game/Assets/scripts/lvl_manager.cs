@@ -87,6 +87,8 @@ public class lvl_manager : MonoBehaviour
 
         lvlMenu.SetActive(true);
         Time.timeScale = 0f;
+        //nastavi viditelnost HUD
+        manager.instance.HUDVisible(false);
     }
 
     public void CloseLvlMenu()
@@ -96,6 +98,8 @@ public class lvl_manager : MonoBehaviour
 
         lvlMenu.SetActive(false);
         Time.timeScale = 1f;
+        //nastavi viditelnost HUD
+        manager.instance.HUDVisible(true);
     }
 
     public void LoadLevel(int levelNumber)
