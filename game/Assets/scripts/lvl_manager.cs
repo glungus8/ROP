@@ -4,15 +4,15 @@ using UnityEngine.UI;
 
 public class lvl_manager : MonoBehaviour
 {
-    public static lvl_manager Instance; //staticka instance - pristup odkudkoliv
-    public int unlockedLevel = 1;
-    GameObject levelMenu;
+    public static lvl_manager instance; //staticka instance - pristup odkudkoliv
+    public int unlockedLevel = 1, roleIndex = 0;
+    GameObject lvlMenu;
 
     void Awake()
     {
-        if (Instance == null) //pokud neni lvl_manager
+        if (instance == null) //pokud neni lvl_manager
         {
-            Instance = this; //tahle instance se stane hlavni
+            instance = this; //tahle instance se stane hlavni
             DontDestroyOnLoad(gameObject); //pri zmene sceny se neznici
             SceneManager.sceneLoaded += OnSceneLoaded; //zavola OnSceneLoaded po nacteni sceny
         }
@@ -29,17 +29,17 @@ public class lvl_manager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        levelMenu = FindInactiveObjectByName("LevelMenu"); //najde i neaktivni menu
+        lvlMenu = Find("LevelMenu"); 
 
-        if (levelMenu != null)
+        if (lvlMenu != null)
         {
-            levelMenu.SetActive(false); //menu je po nacteni sceny vzdy zavrene
+            lvlMenu.SetActive(false); //menu je po nacteni sceny vzdy zavrene
             Time.timeScale = 1f;
-            SetupButtons(); //nastavi tlacitka
+            BtnSetup(); //nastavi tlacitka
         }
     }
 
-    GameObject FindInactiveObjectByName(string name)
+    GameObject Find(string name) //najde i neaktivni menu
     {
         GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
 
@@ -51,12 +51,12 @@ public class lvl_manager : MonoBehaviour
         return null;
     }
 
-    void SetupButtons()
+    void BtnSetup()
     {
-        if (levelMenu == null)
+        if (lvlMenu == null)
             return;
 
-        Button[] buttons = levelMenu.GetComponentsInChildren<Button>(true); //najde vsechny tlacitka v menu
+        Button[] buttons = lvlMenu.GetComponentsInChildren<Button>(true); //najde vsechny tlacitka v menu
 
         foreach (Button btn in buttons)
         {
@@ -64,7 +64,7 @@ public class lvl_manager : MonoBehaviour
 
             if (btn.name == "Close")
             {
-                btn.onClick.AddListener(CloseLevelMenu);
+                btn.onClick.AddListener(CloseLvlMenu);
             }
             else if (btn.name == "Level 1")
             {
@@ -78,35 +78,35 @@ public class lvl_manager : MonoBehaviour
         }
     }
 
-    public void OpenLevelMenu()
+    public void OpenLvlMenu()
     {
-        if (levelMenu == null)
+        if (lvlMenu == null)
         {
             return;
         }
 
-        levelMenu.SetActive(true);
+        lvlMenu.SetActive(true);
         Time.timeScale = 0f;
     }
 
-    public void CloseLevelMenu()
+    public void CloseLvlMenu()
     {
-        if (levelMenu == null)
+        if (lvlMenu == null)
             return;
 
-        levelMenu.SetActive(false);
+        lvlMenu.SetActive(false);
         Time.timeScale = 1f;
     }
 
     public void LoadLevel(int levelNumber)
     {
-        CloseLevelMenu();
+        CloseLvlMenu();
         SceneManager.LoadScene("map" + levelNumber);
     }
 
-    public void CompleteLevel(int levelNumber)
+    public void CompleteLvl(int levelNumber)
     {
-        coin_manager.Instance.AddCoins(10);
+        coin_manager.instance.AddCoins(10);
 
         if (levelNumber >= unlockedLevel) // pokud je tento level nejvyssi dosazeny
             unlockedLevel = levelNumber + 1; //odemkne dalsi level

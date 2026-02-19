@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class coin_manager : MonoBehaviour
 {
-    public static coin_manager Instance;
+    public static coin_manager instance; //staticka instance - pristup odkudkoliv
     public int coins = 0;
 
     void Awake()
     {
-        if (Instance == null)
+        if (instance == null) //instance bude vzdy jen 1
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            instance = this;
+            DontDestroyOnLoad(gameObject); //bude v kazdy scene
         }
         else
         {

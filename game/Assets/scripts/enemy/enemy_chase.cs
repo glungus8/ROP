@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class enemy_chase : enemy_base
+public class enemy_chase : enemy_base 
 {
     public float chaseRange = 5f;
     Rigidbody2D rb;

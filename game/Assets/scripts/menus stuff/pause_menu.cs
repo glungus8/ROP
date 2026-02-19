@@ -3,7 +3,7 @@ using UnityEngine;
 public class pause_menu : MonoBehaviour
 {
     public GameObject pauseMenu;
-    private bool isPaused = false;
+    bool paused = false;
 
     void Start()
     {
@@ -17,36 +17,23 @@ public class pause_menu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isPaused)
-                Resume();
-            else
-                Pause();
+            TogglePause();
         }
-    }
-
-    void Pause() //pauza hry
-    {
-        if (pauseMenu != null)
-            pauseMenu.SetActive(true);
-
-        Time.timeScale = 0f;
-        isPaused = true;
-    }
-
-    void Resume() //vraceni se zpatky do hry 
-    {
-        if (pauseMenu != null)
-            pauseMenu.SetActive(false);
-
-        Time.timeScale = 1f;
-        isPaused = false;
     }
 
     public void TogglePause() //prepnuti mezi Pause a Resume
     {
-        if (isPaused)
-            Resume();
-        else
-            Pause();
+        paused = !paused;
+
+        pauseMenu.SetActive(paused);
+        Time.timeScale = paused ? 0f : 1f;
+    }
+
+    public void ForceClosePause()
+    {
+        paused = false;
+        if (pauseMenu != null)
+            pauseMenu.SetActive(false);
+        Time.timeScale = 1f;
     }
 }

@@ -3,83 +3,44 @@ using TMPro;
 
 public class manager : MonoBehaviour
 {
-    public TMP_Text coinsText;
-    public TMP_Text hpText;
-    public TMP_Text energyText;
-    public TMP_Text ultText;
-
-    public float hp = 100f;
-    public float hpRegen = 5f;       
-    public float regenDelay = 1f;    
-    float lastDmgTimer;    
-
-
-    public float en = 100f;
-    public float enMax = 100f;
-    public float enCost = 25f;
-    public float enRegen = 10f;
-
-    public float ult = 0;
-    public float ultMax = 100f;
-    public float ultRegen = 5f;
+    public TMP_Text coinsText, hpText, energyText, ultText;
+    player_manager pm;
 
     void Update()
     {
-        Energy();
-        Ult();
+        //pm se hleda v kazdem snimku
+        if (pm == null)
+        {
+            pm = FindFirstObjectByType<player_manager>();
+            return;
+        }
         UpdateUI();
-        HP();
-    }
 
-    void Energy()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (en >= enCost)
-                en -= enCost;
-        }
-
-        if (en < enMax)
-            en += enRegen * Time.deltaTime;
-
-        en = Mathf.Clamp(en, 0, enMax);
-    }
-
-    void Ult()
-    {
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            if (ult == 100) ult = 0;
-        }
-
-        if (ult < ultMax)
-            ult += ultRegen * Time.deltaTime;
-
-        ult = Mathf.Clamp(ult, 0, ultMax);
-    }
-
-    void HP()
-    {
+        //dmg test !!!NEBUDE VE FINAL VERZI!!!
         if (Input.GetKeyDown(KeyCode.H))
         {
-            hp -= 10;
-            lastDmgTimer = Time.time;
+            pm.TakeDamage(10);
         }
-
-        if (Time.time - lastDmgTimer >= regenDelay)
-        {
-            hp += hpRegen * Time.deltaTime;
-        }
-
-        hp = Mathf.Clamp(hp, 0, 100);
     }
 
     void UpdateUI()
     {
-        coinsText.text = coin_manager.Instance.coins + " g";
-        hpText.text = Mathf.RoundToInt(hp) + " HP";
-        energyText.text = Mathf.RoundToInt(en) + " EN";
-        ultText.text = Mathf.RoundToInt(ult) + " ULT";
-    }
+        if (coin_manager.instance != null)
+            coinsText.text = coin_manager.instance.coins + " g";
 
+        hpText.text = Mathf.RoundToInt(pm.hp) + " / " + pm.role.maxHP + " HP";
+
+        energyText.text = Mathf.RoundToInt(pm.role.energy) + " EN";
+
+        if (pm.ultCdTimer > 0)
+        {
+            ultText.text = "CD: " + Mathf.Ceil(pm.ultCdTimer) + "s";
+            ultText.color = Color.red;
+        }
+        else
+        {
+            ultText.text = "READY";
+            ultText.color = Color.yellow;
+        }
+    }
 }
