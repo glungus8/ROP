@@ -11,13 +11,13 @@ public class attack_hitbox : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        health enemyHealth = other.GetComponent<health>();
+        // Zmìna: hledáme enemy_base
+        enemy_base enemy = other.GetComponent<enemy_base>();
 
-        if (enemyHealth != null && pm != null)
+        if (enemy != null && pm != null)
         {
-            // Vezme poškození z aktuální role hráèe
-            enemyHealth.TakeDamage(pm.role.damage);
-            Debug.Log("dmg: " + pm.role.damage);
+            // Pøedáme poškození pøímo do enemy_base
+            enemy.TakeDamage(pm.role.damage);
         }
     }
 }

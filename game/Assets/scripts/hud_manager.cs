@@ -29,12 +29,6 @@ public class manager : MonoBehaviour
             return;
         }
         UpdateUI();
-
-        //dmg test !!!NEBUDE VE FINAL VERZI!!!
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            pm.TakeDamage(10);
-        }
     }
 
     void UpdateUI()

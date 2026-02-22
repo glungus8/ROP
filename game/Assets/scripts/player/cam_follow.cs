@@ -36,7 +36,7 @@ public class cam_follow : MonoBehaviour
 
             //posun o padding
             minBounds.x -= padding;
-            minBounds.y += padding;
+            minBounds.y -= padding;
             maxBounds.x += padding;
             maxBounds.y += padding;
         }

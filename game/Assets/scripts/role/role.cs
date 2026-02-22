@@ -5,7 +5,7 @@ public abstract class Role
 {
     public string roleName;
     public int maxHP, damage, maxEnergy;
-    public float speed, attackRange = 1f, ultCooldown = 10f, energy, hpRegen = 1f;
+    public float speed, attackRange = 1f, ultCooldown = 10f, energy, hpRegen = 0.5f;
     public bool isUnlocked = false;
     public int unlockCost = 0;
 

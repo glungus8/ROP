@@ -45,14 +45,12 @@ public class player_manager : MonoBehaviour
 
         if (ultCdTimer > 0)
         {
-            Debug.Log($"Ult se nabiji: {Mathf.Ceil(ultCdTimer)}s");
             return;
         }
 
         role.UseUlt(this);
 
         ultCdTimer = role.ultCooldown;
-        Debug.Log($"Ult pouzita! dalsi za: {ultCdTimer}s");
     }
 
     public void SetRole(Role newRole)
@@ -65,16 +63,17 @@ public class player_manager : MonoBehaviour
         moveSpeed = newRole.speed;
         damage = newRole.damage;
         hp = newRole.maxHP;
-
-        Debug.Log("hrac ma roli: " + role.roleName + " s rychlosti: " + this.moveSpeed);
     }
 
-    public void TakeDamage(int dmg)
+    public void TakeDamage(float dmg)
     {
-        dmg = role.ModifyDamageTaken(dmg);
-        hp -= dmg;
+        hp -= role.ModifyDamageTaken((int)dmg);
 
-        if (hp <= 0) Debug.Log("DEAD");
+        if (hp <= 0)
+        {
+            hp = 0;
+            Debug.Log("DEAD");
+        }
     }
 
     void OnEnable()
@@ -98,7 +97,6 @@ public class player_manager : MonoBehaviour
         {
             hp = role.maxHP;
         }
-        Debug.Log("HEAL aktualni hp: " + hp);
     }
 
     public void ApplyRoleByIndex(int index)

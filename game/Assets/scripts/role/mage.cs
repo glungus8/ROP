@@ -14,7 +14,7 @@ public class Mage : Role
         energy = 150;
         attackRange = 4.0f; 
         hpRegen = 0.5f;
-        ultCooldown = 15f;
+        ultCooldown = 0f; //15
         unlockCost = 50;
         isUnlocked = false;
     }
@@ -28,8 +28,6 @@ public class Mage : Role
         {
             player.mageAuraVisual.SetActive(true);
         }
-
-        Debug.Log("Mage: AURA AKTIVOVANA!");
     }
 
     public override void UpdateRole(player_manager player)
@@ -52,7 +50,7 @@ public class Mage : Role
             {
                 if (enemy.CompareTag("Enemy"))
                 {
-                    health enHealth = enemy.GetComponent<health>();
+                    enemy_base enHealth = enemy.GetComponent<enemy_base>();
                     if (enHealth != null)
                     {
                         enHealth.TakeDamage(1); //da dmg kazdych par snimku

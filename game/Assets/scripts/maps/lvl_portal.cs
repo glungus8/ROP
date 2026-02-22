@@ -8,6 +8,11 @@ public class lvl_portal : MonoBehaviour
     {
         if (playerInside && Input.GetKeyDown(KeyCode.E)) //jestli je v portalu a zmackl E tak se otevre level menu
         {
+            if (role_menu.instance != null)
+            {
+                role_menu.instance.ForceClose();
+            }
+
             lvl_manager.instance.OpenLvlMenu();
         }
     }

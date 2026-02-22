@@ -75,6 +75,11 @@ public class lvl_manager : MonoBehaviour
                 btn.onClick.AddListener(() => LoadLevel(2));
                 btn.interactable = unlockedLevel >= 2;
             }
+            else if (btn.name == "Level 3")
+            {
+                btn.onClick.AddListener(() => LoadLevel(3));
+                btn.interactable = unlockedLevel >= 3;
+            }
         }
     }
 
@@ -110,12 +115,15 @@ public class lvl_manager : MonoBehaviour
 
     public void CompleteLvl(int levelNumber)
     {
-        coin_manager.instance.AddCoins(10);
-
         if (levelNumber >= unlockedLevel) // pokud je tento level nejvyssi dosazeny
             unlockedLevel = levelNumber + 1; //odemkne dalsi level
 
         Time.timeScale = 1f;
         SceneManager.LoadScene("base");
+    }
+
+    public bool IsOpen()
+    {
+        return lvlMenu != null && lvlMenu.activeSelf;
     }
 }

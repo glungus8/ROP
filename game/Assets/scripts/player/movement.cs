@@ -41,11 +41,6 @@ public class movement : MonoBehaviour
             anim.SetFloat("X", anim.GetFloat("LastMoveX"));
             anim.SetFloat("Y", anim.GetFloat("LastMoveY"));
         }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("Aktuální rychlost v movementu: " + pm.role.speed);
-        }
     }
 
     void FixedUpdate()
@@ -53,12 +48,6 @@ public class movement : MonoBehaviour
         float speed = pm.moveSpeed;
 
         rb.MovePosition(rb.position + moveInput * speed * Time.fixedDeltaTime);
-
-        // TEST: Jednou za èas vypíše, kdo se hýbe
-        if (moveInput.magnitude > 0 && Time.frameCount % 100 == 0)
-        {
-            Debug.Log($"Objekt {gameObject.name} se hybe rychlosti {speed} (Role: {pm.role.roleName})");
-        }
     }
 
     public Vector2 GetLastMove()

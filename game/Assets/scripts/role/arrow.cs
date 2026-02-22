@@ -23,7 +23,7 @@ public class Arrow : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            health en = collision.GetComponent<health>();
+            enemy_base en = collision.GetComponent<enemy_base>();
             if (en != null) en.TakeDamage(damage);
             Destroy(gameObject);
         }
@@ -31,7 +31,6 @@ public class Arrow : MonoBehaviour
         else if (collision.CompareTag("wall"))
         {
             Destroy(gameObject);
-            Debug.Log("zed");
         }
     }
 }
