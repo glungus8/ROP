@@ -1,10 +1,13 @@
 using UnityEngine;
 
-public class enenmy_arrow : MonoBehaviour
+public class enemy_arrow : MonoBehaviour
 {
     public float speed = 8f; 
     public float damage;
-
+    void Start()
+    {
+        Destroy(gameObject, 3f); //za 3s se sip znici pokud nic netrefil
+    }
     void Update()
     {
         transform.Translate(Vector2.right * speed * Time.deltaTime);

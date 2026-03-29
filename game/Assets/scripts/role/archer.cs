@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class Archer : Role
 {
-    float nextAttackTime = 0f;
-    float attackCooldown = 0.4f;
+    float nextAtkTime = 0f, attackCooldown = 0.4f;
 
     public Archer()
     {
@@ -11,7 +10,6 @@ public class Archer : Role
         maxHP = 90;
         damage = 25;
         speed = 7f;
-        maxEnergy = 100;
         hpRegen = 0.8f;
         ultCooldown = 10f;
         unlockCost = 30;
@@ -24,23 +22,21 @@ public class Archer : Role
 
         if (Input.GetMouseButton(0)) 
         {
-            if (Time.time >= nextAttackTime)
+            if (Time.time >= nextAtkTime) //aby nemohl spamovat atk
             {
                 BasicAttack(player);
-                nextAttackTime = Time.time + attackCooldown;
+                nextAtkTime = Time.time + attackCooldown; 
             }
         }
     }
 
     void BasicAttack(player_manager player)
     {
-        Debug.Log("Archer: vystrel!");
         SpawnArrow(player, 0f);
     }
 
     public override void UseUlt(player_manager player)
     {
-        Debug.Log("Archer ult: MULTI SHOT!");
         float startAngle = -30f;
         float angleStep = 15f;
 
@@ -54,6 +50,7 @@ public class Archer : Role
     void SpawnArrow(player_manager player, float angleOffset)
     {
         if (player.arrowPrefab == null) return;
+        if (pause_menu.instance != null && pause_menu.instance.pauseMenu.activeSelf) return;
 
         movement movement = player.GetComponent<movement>();
         Vector2 shootDir = Vector2.right;
@@ -63,15 +60,17 @@ public class Archer : Role
             shootDir = movement.GetLastMove(); //aby se vedelo jakym smerem strelit
         }
 
-        float baseAngle = Mathf.Atan2(shootDir.y, shootDir.x) * Mathf.Rad2Deg; //vypocet uhlu
+        //vypocet uhlu Atan2 vezme X Y a spocita uhel od zakladniho smeru (osa X doprava) a Rad2Deg z toho udela stupne
+        float baseAngle = Mathf.Atan2(shootDir.y, shootDir.x) * Mathf.Rad2Deg;
+        //Quaternion => rotace, Euler(x,y,z) jak se natoci kolem jaky osy(z), baseAngle kam se hrac diva, angleOffset od ult 
         Quaternion finalRotation = Quaternion.Euler(0, 0, baseAngle + angleOffset);
 
         GameObject arrow = Object.Instantiate(player.arrowPrefab, player.transform.position, finalRotation);
 
-        Arrow arrowScript = arrow.GetComponent<Arrow>();
-        if (arrowScript != null)
+        Arrow arrowScr = arrow.GetComponent<Arrow>();
+        if (arrowScr != null)
         {
-            arrowScript.damage = damage;
+            arrowScr.damage = damage;
         }
     }
 }

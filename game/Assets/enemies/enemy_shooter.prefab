@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 9121014839009409915}
   - component: {fileID: 5293889684955057623}
   - component: {fileID: 1442489665332932019}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: enemy_shooter
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -70,17 +70,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.00794363, y: -0.2065357}
+  m_Offset: {x: 0.015322685, y: -0.020405352}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.5666667, y: 2.3333333}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.1112108, y: 1.8896923}
+  m_Size: {x: 1.9155598, y: 1.9295772}
   m_EdgeRadius: 0
 --- !u!50 &7461428018779076962
 Rigidbody2D:
@@ -153,8 +153,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -3618916960735711815, guid: b0e7bf441a540d64f9e7ccc4936c29be, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 1344780287051860636, guid: 30dff36043b21f14f9ce5c4bd84d713d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

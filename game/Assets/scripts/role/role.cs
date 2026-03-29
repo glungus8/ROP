@@ -4,12 +4,11 @@ using UnityEngine;
 public abstract class Role
 {
     public string roleName;
-    public int maxHP, damage, maxEnergy;
+    public int maxHP, damage, unlockCost = 0;
     public float speed, attackRange = 1f, ultCooldown = 10f, energy, hpRegen = 0.5f;
     public bool isUnlocked = false;
-    public int unlockCost = 0;
 
-    public virtual int ModifyDamageTaken(int dmg) => dmg; //co se stane pri zasahu
+    public virtual int ModifyDamage(int dmg) => dmg; //co se stane pri zasahu
 
     public virtual void UseUlt(player_manager player) { }
 

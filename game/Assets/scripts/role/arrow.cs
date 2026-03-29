@@ -4,19 +4,14 @@ public class Arrow : MonoBehaviour
 {
     public float speed = 15f;
     public int damage;
-    Vector2 direction = Vector2.right;
 
-    public void SetDirection(Vector3 dir)
+    void Start()
     {
-        //nastavi smeri a otoci sip vizualne k cili
-        direction = dir;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        Destroy(gameObject, 3f); //za 3s se sip znici pokud nic netrefil
     }
-
     void Update()
     {
-        //leti ve smeru kam je objekt natoceny (diky baseAngle v archer)
+        //leti ve smeru kam je objekt natoceny (diky baseAngle v archer) Vector2.right je to kam miri spicka sipu
         transform.Translate(Vector2.right * speed * Time.deltaTime);
     }
     void OnTriggerEnter2D(Collider2D collision)

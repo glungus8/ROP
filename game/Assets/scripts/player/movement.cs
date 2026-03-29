@@ -45,7 +45,8 @@ public class movement : MonoBehaviour
 
     void FixedUpdate()
     {
-        float speed = pm.moveSpeed;
+        //zakladni rychlost role * mult z modifier_manager
+        float speed = pm.moveSpeed * modifier_manager.instance.playerSpeedMul;
 
         rb.MovePosition(rb.position + moveInput * speed * Time.fixedDeltaTime);
     }

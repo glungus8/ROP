@@ -5,12 +5,13 @@ using UnityEngine.Tilemaps;
 public class cam_follow : MonoBehaviour
 {     
     public Tilemap tilemap;        
-    public float smoothSpeed = 0.125f, padding = 0.5f; // Rezerva pùl tilu
+    public float smoothSpeed = 0.1f, padding = 0.5f;
     public Vector3 offset = new Vector3(0f, 0f, -10f);
 
     Transform player;
     Camera cam;
     Vector3 minBounds, maxBounds; //minimum a maximum mapy
+    Vector3 velocity = Vector3.zero;
     float halfHeight, halfWidth;
 
     void Start()
@@ -80,7 +81,6 @@ public class cam_follow : MonoBehaviour
         targetPos.z = offset.z;
 
         //plynule prechody
-        Vector3 smoothPos = Vector3.Lerp(transform.position, targetPos, 1f - Mathf.Pow(1f - smoothSpeed, Time.deltaTime * 60f));
-        transform.position = smoothPos;
+        transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref velocity, smoothSpeed);
     }
 }

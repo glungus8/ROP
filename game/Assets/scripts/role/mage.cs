@@ -10,11 +10,9 @@ public class Mage : Role
         maxHP = 80;
         damage = 40;       
         speed = 5f;        
-        maxEnergy = 150;   
-        energy = 150;
         attackRange = 4.0f; 
         hpRegen = 0.5f;
-        ultCooldown = 0f; //15
+        ultCooldown = 13f;
         unlockCost = 50;
         isUnlocked = false;
     }
@@ -24,9 +22,9 @@ public class Mage : Role
         healTimer = auraDuration;
 
         //zapne vizualni efekt
-        if (player.mageAuraVisual != null)
+        if (player.mageAura != null)
         {
-            player.mageAuraVisual.SetActive(true);
+            player.mageAura.SetActive(true);
         }
     }
 
@@ -41,29 +39,27 @@ public class Mage : Role
             if (Time.time >= nextHealTime)
             {
                 player.Heal(2);
-                nextHealTime = Time.time + 0.5f; //nastavi dalsi heal za 0.5s
-            }
 
-            //hleda enemaky v kruhu
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(player.transform.position, auraRadius);
-            foreach (Collider2D enemy in hitEnemies)
-            {
-                if (enemy.CompareTag("Enemy"))
+                //hleda enemaky v kruhu a da je do pole
+                Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(player.transform.position, auraRadius);
+                foreach (Collider2D enemy in hitEnemies)
                 {
-                    enemy_base enHealth = enemy.GetComponent<enemy_base>();
-                    if (enHealth != null)
+                    if (enemy.CompareTag("Enemy"))
                     {
-                        enHealth.TakeDamage(1); //da dmg kazdych par snimku
+                        enemy_base enHP = enemy.GetComponent<enemy_base>();
+                        if (enHP != null) enHP.TakeDamage(10);
                     }
                 }
+
+                nextHealTime = Time.time + 0.5f; //nastavi dalsi heal + hit za 0.5s
             }
 
             //kruh zmizi az vyprsi cas
             if (healTimer <= 0)
             {
-                if (player.mageAuraVisual != null)
+                if (player.mageAura != null)
                 {
-                    player.mageAuraVisual.SetActive(false);
+                    player.mageAura.SetActive(false);
                 }
             }
         }

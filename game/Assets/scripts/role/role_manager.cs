@@ -2,10 +2,11 @@ using UnityEngine;
 
 public class role_manager : MonoBehaviour
 {
+    public static role_manager instance;
     public coin_manager currency;
     public player_manager pm;
+    public Role[] roles;
 
-    Role[] roles;
     int selectedIndex = 0;
 
     void Start()
@@ -15,52 +16,97 @@ public class role_manager : MonoBehaviour
 
     void Awake()
     {
-        roles = new Role[]
+        instance = this;
+
+        //seznam roli
+        roles = new Role[] 
         {
         new Tank(),
         new Mage(),
         new Archer()
         };
+
+        //nacte ze savu ktery role ma koupeny a kterou vybranou
+        if (save_manager.instance != null && save_manager.instance.currentSave != null)
+        {
+            int loadedIndex = save_manager.instance.currentSave.roleIndex;
+
+            //opravi se pokud je v savu blbost
+            if (loadedIndex < 0 || loadedIndex >= roles.Length)
+            {
+                loadedIndex = 0;
+                save_manager.instance.currentSave.roleIndex = 0;
+            }
+
+            LoadUnlockedStates(
+                save_manager.instance.currentSave.unlockedRoles,
+                loadedIndex
+            );
+        }
     }
 
-    public Role GetRole()
+    public bool[] GetUnlockedStates() //vrati jaky role jsou odemceny
+    {
+        bool[] states = new bool[roles.Length];
+        for (int i = 0; i < roles.Length; i++)
+        {
+            states[i] = roles[i].isUnlocked;
+        }
+        return states;
+    }
+
+    public void LoadUnlockedStates(bool[] states, int lastSelectedIndex) //nacte odemceny role ze savu
+    {
+        if (states == null || states.Length != roles.Length) return;
+
+        for (int i = 0; i < roles.Length; i++)
+        {
+            roles[i].isUnlocked = states[i];
+        }
+        selectedIndex = lastSelectedIndex;
+    }
+
+    public Role GetRole() //vrati vybranou roli
     {
         if (roles == null || roles.Length == 0) return null;
         return roles[selectedIndex];
     }
 
-    public void ClickTank() => TryUseRole(0);
-    public void ClickMage() => TryUseRole(1);
-    public void ClickArcher() => TryUseRole(2);
+    public void ClickTank() => UseRole(0);
+    public void ClickMage() => UseRole(1);
+    public void ClickArcher() => UseRole(2);
 
-    void TryUseRole(int index)
+    void UseRole(int index)
     {
-        selectedIndex = index;
         Role r = roles[index];
 
-        //pokud existuje hrac tak mu zmenime roli
-        if (pm != null)
+        if (!r.isUnlocked)
         {
-            if (r.isUnlocked)
+            if (coin_manager.instance.coins >= r.unlockCost)
             {
-                pm.SetRole(r);
-            }
-            else if (currency.coins >= r.unlockCost)
-            {
-                currency.coins -= r.unlockCost;
+                coin_manager.instance.AddCoins(-r.unlockCost);
                 r.isUnlocked = true;
-                pm.SetRole(r);
             }
             else
             {
                 Debug.Log("malo penez");
+                return;
             }
-
-            //aby si to pamatovalo i v jiny scene
-            lvl_manager.instance.roleIndex = index;
-
-            //zmena role
-            pm.ApplyRoleByIndex(index);
         }
+
+        //pokud existuje hrac tak mu zmenime roli
+        if (pm != null)
+        {
+            pm.SetRole(roles[index], index);
+        }
+
+        if (lvl_manager.instance != null)
+        {
+            lvl_manager.instance.roleIndex = index;
+        }
+
+        //ulozi hru
+        if (save_manager.instance != null)
+            save_manager.instance.SaveGame();
     }
 }

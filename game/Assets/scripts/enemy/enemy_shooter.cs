@@ -1,10 +1,11 @@
 using UnityEngine;
 
-public class enemy_shooterr : enemy_base
+public class enemy_shooter : enemy_base
 {
     public GameObject arrowPrefab;
     public float fireRate = 2f;
-    private float nextFireTime;
+
+    float nextFireTime;
 
     protected override void Start()
     {
@@ -37,7 +38,7 @@ public class enemy_shooterr : enemy_base
         arrow.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
         //prida sipu dmg
-        enenmy_arrow arrowScript = arrow.GetComponent<enenmy_arrow>();
-        if (arrowScript != null) arrowScript.damage = damage;
+        enemy_arrow arrowScr = arrow.GetComponent<enemy_arrow>();
+        if (arrowScr != null) arrowScr.damage = damage;
     }
 }
