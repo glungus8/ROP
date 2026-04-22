@@ -141,9 +141,9 @@ public class save_manager : MonoBehaviour
         }
     }
 
+    //reset manageru
     public void ResetManagers()
     {
-        // Vynulujeme data v pamÏti (v manaûerech)
         if (coin_manager.instance != null) coin_manager.instance.coins = 0;
 
         if (lvl_manager.instance != null)
@@ -159,7 +159,6 @@ public class save_manager : MonoBehaviour
             player_equipment.instance.equippedArmor = null;
         }
 
-        // Resetuj i modifik·tory, aù nezaËÌn·ö novou hru s Explode enem·kama
         if (modifier_manager.instance != null) modifier_manager.instance.ResetModifiers();
     }
 

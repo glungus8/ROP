@@ -8,8 +8,6 @@ public class SavedItemData
     public int level;
     public float upgradeBonus;
 }
-
-[System.Serializable]
 public class data
 {
     public string saveName;
