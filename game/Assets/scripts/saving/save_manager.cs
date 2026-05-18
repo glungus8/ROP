@@ -51,6 +51,8 @@ public class save_manager : MonoBehaviour
             currentSave.inventoryItems.Clear();
             var inv = player_equipment.instance.inventory;
 
+            currentSave.equippedWeaponIndex = -1;
+            currentSave.equippedArmorIndex = -1;
             for (int i = 0; i < inv.Count; i++)
             {
                 SavedItemData sData = new SavedItemData();

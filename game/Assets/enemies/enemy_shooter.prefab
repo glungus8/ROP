@@ -180,6 +180,7 @@ MonoBehaviour:
   hp: 0
   damage: 0
   attackRange: 0
+  deathSound: {fileID: 8300000, guid: 3358b1515c3be544188fc690941fd270, type: 3}
   arrowPrefab: {fileID: 2086731056528841069, guid: b28572bfed2e61943b6615bdf21f1139, type: 3}
   fireRate: 2
 --- !u!195 &1442489665332932019

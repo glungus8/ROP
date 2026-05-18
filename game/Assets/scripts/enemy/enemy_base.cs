@@ -10,6 +10,8 @@ public abstract class enemy_base : MonoBehaviour
     protected SpriteRenderer sprite;
     bool dead = false;
 
+    //public AudioClip deathSound;
+
     protected virtual void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -103,6 +105,12 @@ public abstract class enemy_base : MonoBehaviour
 
     protected virtual void Die()
     {
+        ////zvuk kdyz umre enemy
+        //if (deathSound != null)
+        //{
+        //    AudioSource.PlayClipAtPoint(deathSound, transform.position);
+        //}
+
         if (modifier_manager.instance != null && modifier_manager.instance.enemiesExplode)
         {
             Explode();

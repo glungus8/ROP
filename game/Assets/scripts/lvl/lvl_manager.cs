@@ -92,10 +92,16 @@ public class lvl_manager : MonoBehaviour
             return;
         }
 
+        if (save_manager.instance != null && save_manager.instance.currentSave != null)
+        {
+            unlockedLevel = save_manager.instance.currentSave.unlockedLevel;
+        }
+        BtnSetup();
+
         lvlMenu.SetActive(true);
         Time.timeScale = 0f;
         //nastavi viditelnost HUD
-        manager.instance.HUDVisible(false);
+        if (manager.instance != null) manager.instance.HUDVisible(false);
     }
 
     public void CloseLvlMenu()

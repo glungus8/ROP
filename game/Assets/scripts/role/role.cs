@@ -15,10 +15,10 @@ public abstract class Role
     //bezi kazdy snimek (pro efekty co trvaji nejakou dobu)
     public virtual void UpdateRole(player_manager player)
     {
-        if (player.hp < maxHP) //pasivni heal
+        if (player.hp < player.maxHP) //pasivni heal
         {
             player.hp += hpRegen * Time.deltaTime;
-            if (player.hp > maxHP) player.hp = maxHP;
+            if (player.hp > player.maxHP) player.hp = player.maxHP;
         }
     }
 }
