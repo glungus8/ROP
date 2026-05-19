@@ -51,6 +51,7 @@ public class player_equipment : MonoBehaviour
         {
             equippedWeapon = null;
             if (lvl_manager.instance != null) lvl_manager.instance.savedWeapon = null;
+            
         }
 
         //pokud sundava brneni
